@@ -18,9 +18,7 @@ connectToMongoose(process.env.MONGODB_URI);
 app.use(cookieParser());
 /// 
 app.use(express.json());
-app.get('/', (req, res) => {
-    res.sendFile('dashboard.html', { root: 'public' });
-});
+
 app.use(express.static('public'));
 
 // app.use(validate);
@@ -34,7 +32,9 @@ app.post('/v1/tasks',validate, addTask);
 
 app.put('/v1/tasks', validate, updateTask);
 
-
+app.get('/', (req, res) => {
+    res.sendFile('dashboard.html', { root: 'public' });
+});
 
 const port = process.env.PORT || 3000;
 app.listen(port,()=>{
