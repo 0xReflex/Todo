@@ -233,7 +233,7 @@
         if (res.ok) {
           okEl.textContent = 'Signed in! Redirecting...';
           okEl.style.display = 'block';
-          setTimeout(() => window.location.href = '/dashboard.html', 1000);
+          setTimeout(() => window.location.href = '/', 1000);
         } else if (res.status === 400) {
           errEl.textContent = "User doesn't exist. Need an account?";
           errEl.style.display = 'block';
