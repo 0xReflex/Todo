@@ -38,7 +38,7 @@ async function makeToken(req,res){
         }
 
         const data = {
-            user: valid.username,
+            username: valid.username,
             email: valid.email,
         }
         
