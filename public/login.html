@@ -215,7 +215,7 @@
         if (res.ok) {
           okEl.textContent = 'Account created! Redirecting...';
           okEl.style.display = 'block';
-          setTimeout(() => window.location.href = '/dashboard.html', 1000);
+          setTimeout(() => window.location.href = '/', 1000);
         } else {
           errEl.textContent = data.err || 'Something went wrong.';
           errEl.style.display = 'block';
