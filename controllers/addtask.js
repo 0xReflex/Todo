@@ -1,5 +1,4 @@
 const TODO = require('../models/todo');
-const {nanoid} = require('nanoid');
 const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
 
@@ -19,6 +18,7 @@ async function addTask(req,res){
         return res.status(400).json({err:valid.err});
     }
     try{
+        const { nanoid } = await import('nanoid');
         const _id = nanoid(32);
         const taskCreated = await TODO.create({
             id: _id,
