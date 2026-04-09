@@ -443,8 +443,8 @@
     async function init() {
       try {
         const res = await fetch('/v1/tasks', { credentials: 'include' });
-        if (res.status === 461) return window.location.href = '/login';
-        if (res.status === 462) return window.location.href = '/signin?reason=expired';
+        if (res.status === 461) return window.location.href = '/login.html';
+        if (res.status === 462) return window.location.href = '/signin.html?reason=expired';
         const data = await res.json();
         tasks = data.taskFound || [];
         renderTasks();
