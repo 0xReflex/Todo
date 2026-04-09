@@ -33,6 +33,31 @@
       color: var(--text);
     }
 
+    #page-loader {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      z-index: 999;
+    }
+    #page-loader .ring {
+      width: 40px;
+      height: 40px;
+      border: 2.5px solid #2a2a2a;
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    #page-loader p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    #app { display: none; }
+
     header {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
@@ -350,6 +375,12 @@
 </head>
 <body>
 
+  <div id="page-loader">
+    <div class="ring"></div>
+    <p>Loading...</p>
+  </div>
+
+  <div id="app">
   <header>
     <div class="header-left">
       <div class="logo-mark">
@@ -400,6 +431,7 @@
   </main>
 
   <div class="toast" id="toast"></div>
+  </div>
 
   <script>
     let tasks = [];
@@ -411,15 +443,19 @@
     async function init() {
       try {
         const res = await fetch('/v1/tasks', { credentials: 'include' });
-        if (res.status === 461) return window.location.href = '/login.html';
-        if (res.status === 462) return window.location.href = '/signup.html?reason=expired';
+        if (res.status === 461) return window.location.href = '/login';
+        if (res.status === 462) return window.location.href = '/signin?reason=expired';
         const data = await res.json();
         tasks = data.taskFound || [];
         renderTasks();
         updateStats();
+        document.getElementById('page-loader').style.display = 'none';
+        document.getElementById('app').style.display = 'block';
       } catch (e) {
         showToast('Could not load tasks', 'error');
         document.getElementById('task-list').innerHTML = '';
+        document.getElementById('page-loader').style.display = 'none';
+        document.getElementById('app').style.display = 'block';
       }
     }
 
